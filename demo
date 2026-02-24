@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEB Unud - UMKM Grow Hub</title>
+    <!-- Dependencies: Tailwind CSS & Font Awesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: #f97316; /* Warna Oranye khas Unud */
+            --primary-dark: #ea580c;
+            --secondary: #991b1b; /* Warna Marun khas FEB */
+            --bg-light: #fffaf5;
+        }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: var(--bg-light);
+        }
+
+        /* Gradient identitas Unud & FEB */
+        .unud-gradient {
+            background: linear-gradient(135deg, #f97316 0%, #991b1b 100%);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { 
+            display: block; 
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-bottom: 3px solid white;
+        }
+
+        .ai-glow {
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.4);
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Top Branding Bar -->
+    <div class="bg-red-900 text-white py-1 px-6 text-[10px] font-bold tracking-[0.2em] flex justify-between uppercase">
+        <span>Fakultas Ekonomi dan Bisnis</span>
+        <span>Universitas Udayana</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="unud-gradient text-white shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <div class="bg-white p-1.5 rounded-full shadow-inner">
+                    <i class="fas fa-graduation-cap text-orange-600 text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold leading-none">UMKM<span class="text-orange-200">Grow</span></h1>
+                    <p class="text-[10px] font-medium opacity-80 uppercase tracking-tighter">Digital Hub FEB Unud</p>
+                </div>
+            </div>
+
+            <!-- Menu Desktop -->
+            <div class="hidden lg:flex items-center space-x-2">
+                <button onclick="showTab('swot', this)" class="nav-link active px-4 py-2 font-semibold hover:bg-white/10 transition rounded-t-lg">Analisis SWOT</button>
+                <button onclick="showTab('ai-content', this)" class="nav-link px-4 py-2 font-semibold hover:bg-white/10 transition rounded-t-lg">Konten AI</button>
+                <button onclick="showTab('pricing', this)" class="nav-link px-4 py-2 font-semibold hover:bg-white/10 transition rounded-t-lg">Strategi Harga</button>
+                <button onclick="showTab('inventory', this)" class="nav-link px-4 py-2 font-semibold hover:bg-white/10 transition rounded-t-lg">Manajemen Stok</button>
+            </div>
+
+            <div class="hidden lg:flex items-center space-x-4">
+                <div class="text-right">
+                    <p class="text-xs font-bold leading-none">Pusat Inkubator Bisnis</p>
+                    <p class="text-[10px] opacity-75">FEB Universitas Udayana</p>
+                </div>
+                <div class="w-10 h-10 bg-orange-200 rounded-full border-2 border-white/50 flex items-center justify-center text-orange-800 font-bold">
+                    FE
+                </div>
+            </div>
+
+            <button class="lg:hidden p-2" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-red-800 p-6 space-y-4 border-t border-red-700">
+            <button onclick="showTab('swot'); toggleMobileMenu()" class="block w-full text-left font-bold">Analisis SWOT</button>
+            <button onclick="showTab('ai-content'); toggleMobileMenu()" class="block w-full text-left font-bold">Generator Konten</button>
+            <button onclick="showTab('pricing'); toggleMobileMenu()" class="block w-full text-left font-bold">Kalkulator Harga</button>
+            <button onclick="showTab('inventory'); toggleMobileMenu()" class="block w-full text-left font-bold">Inventori Barang</button>
+        </div>
+    </nav>
+
+    <!-- Header Banner -->
+    <header class="unud-gradient pb-32 pt-12 relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-10 pointer-events-none">
+            <i class="fas fa-university text-[20rem] -mr-20 -mt-20"></i>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center md:text-left">
+            <h2 class="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tight">Digitalisasi UMKM Bali</h2>
+            <p class="text-orange-100 text-lg md:text-xl max-w-2xl opacity-90">Platform kecerdasan buatan untuk akselerasi bisnis mahasiswa dan alumni FEB Universitas Udayana.</p>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="max-w-7xl mx-auto px-6 -mt-20 pb-20 relative z-20">
+        
+        <!-- Tab: SWOT -->
+        <section id="swot" class="tab-content active">
+            <div class="bg-white rounded-3xl shadow-2xl border border-orange-100 overflow-hidden">
+                <div class="p-8 border-b border-orange-50 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-orange-50/30">
+                    <div>
+                        <h3 class="text-2xl font-bold text-red-900 uppercase">Matriks SWOT Bisnis</h3>
+                        <p class="text-slate-500 text-sm">Identifikasi internal dan eksternal usaha Anda.</p>
+                    </div>
+                    <button onclick="analyzeSWOTWithAI()" class="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-2xl font-black shadow-lg transition-all hover:-translate-y-1 flex items-center ai-glow">
+                        <i class="fas fa-robot mr-2"></i> ANALISIS STRATEGI AI
+                    </button>
+                </div>
+                <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="text-xs font-black text-orange-600 uppercase mb-2 block">Strengths (Kekuatan)</label>
+                            <textarea id="strength" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-orange-500 outline-none h-32" placeholder="Apa keunggulan produk Anda?"></textarea>
+                        </div>
+                        <div>
+                            <label class="text-xs font-black text-red-600 uppercase mb-2 block">Weaknesses (Kelemahan)</label>
+                            <textarea id="weakness" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-red-400 outline-none h-32" placeholder="Apa yang perlu diperbaiki?"></textarea>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="text-xs font-black text-green-600 uppercase mb-2 block">Opportunities (Peluang)</label>
+                            <textarea id="opportunity" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-green-500 outline-none h-32" placeholder="Tren pasar apa yang mendukung?"></textarea>
+                        </div>
+                        <div>
+                            <label class="text-xs font-black text-orange-700 uppercase mb-2 block">Threats (Ancaman)</label>
+                            <textarea id="threat" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-orange-800 outline-none h-32" placeholder="Siapa pesaing atau hambatan luar?"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div id="swot-ai-result" class="hidden p-8 bg-red-50 border-t-4 border-red-800">
+                    <h4 class="font-black text-red-900 mb-4 flex items-center italic">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2 text-xl"></i> REKOMENDASI DOSEN PEMBIMBING:
+                    </h4>
+                    <div id="swot-ai-text" class="text-red-950 text-sm leading-relaxed whitespace-pre-wrap"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: AI Content -->
+        <section id="ai-content" class="tab-content">
+            <div class="bg-white rounded-3xl shadow-2xl border border-orange-100 overflow-hidden">
+                <div class="p-8 bg-orange-50/30 border-b border-orange-50">
+                    <h3 class="text-2xl font-bold text-red-900">Marketing Content ✨</h3>
+                    <p class="text-slate-500 text-sm">Generator deskripsi produk dan konten media sosial.</p>
+                </div>
+                <div class="p-8 grid grid-cols-1 lg:grid-cols-5 gap-10">
+                    <div class="lg:col-span-2 space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Nama Produk</label>
+                            <input type="text" id="prod-name" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-orange-500 outline-none" placeholder="Misal: Keripik Tempe Sudirman">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Target Audience</label>
+                            <input type="text" id="prod-target" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-orange-500 outline-none" placeholder="Misal: Mahasiswa, Turis">
+                        </div>
+                        <button onclick="generateCaption()" class="w-full bg-orange-600 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-orange-700 transition">
+                            <i class="fas fa-magic mr-2"></i> BUAT KONTEN PROMOSI
+                        </button>
+                    </div>
+                    <div class="lg:col-span-3 bg-slate-50 rounded-3xl p-8 border border-slate-100 relative min-h-[300px]">
+                        <div id="loading" class="hidden absolute inset-0 bg-white/80 rounded-3xl flex flex-col items-center justify-center z-50">
+                            <div class="animate-spin h-10 w-10 border-4 border-orange-600 border-t-transparent rounded-full mb-4"></div>
+                            <p class="font-bold text-orange-800">Menyusun Konten Kreatif...</p>
+                        </div>
+                        <div id="ai-result">
+                            <h4 class="font-bold text-red-900 mb-4">Hasil Draft Konten</h4>
+                            <div id="caption-text" class="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                                Hasil analisis AI akan muncul di sini.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Pricing -->
+        <section id="pricing" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-xl border border-orange-100">
+                    <h3 class="text-xl font-bold text-red-900 mb-6 uppercase">Kalkulator Harga FEB</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Modal Produksi per Unit</label>
+                            <input type="number" id="cost-base" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-orange-500 outline-none" placeholder="0">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Margin Keuntungan (%)</label>
+                            <input type="number" id="margin-pct" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-orange-500 outline-none" value="25">
+                        </div>
+                        <button onclick="calculatePrice()" class="w-full bg-red-800 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-red-900 transition">HITUNG HARGA JUAL</button>
+                    </div>
+                </div>
+                <div class="bg-white p-10 rounded-3xl shadow-xl border border-orange-100 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                    <h4 class="text-slate-500 font-bold uppercase text-xs tracking-widest mb-4">Rekomendasi Harga Jual</h4>
+                    <div id="price-result" class="text-6xl font-black text-orange-600 my-4">Rp 0</div>
+                    <p class="text-sm text-slate-400 italic">"Harga optimal menjamin keberlanjutan usaha."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Inventory -->
+        <section id="inventory" class="tab-content">
+            <div class="bg-white rounded-3xl shadow-2xl border border-orange-100 overflow-hidden">
+                <div class="p-8 flex justify-between items-center border-b border-orange-50 bg-orange-50/20">
+                    <div>
+                        <h3 class="text-2xl font-bold text-red-900 uppercase">Manajemen Inventori</h3>
+                        <p class="text-slate-500 text-sm">Monitor persediaan produk UMKM Anda.</p>
+                    </div>
+                    <button onclick="addInventoryItem()" class="bg-red-800 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg hover:bg-red-900 transition">+ Produk Baru</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-100">
+                                <th class="px-8 py-4 text-xs font-black text-slate-500 uppercase">Barang</th>
+                                <th class="px-8 py-4 text-xs font-black text-slate-500 uppercase">Jumlah Stok</th>
+                                <th class="px-8 py-4 text-xs font-black text-slate-500 uppercase">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventory-list" class="divide-y divide-slate-50">
+                            <!-- List data akan dirender di sini -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- UI Notification -->
+    <div id="notification-area" class="fixed bottom-5 right-5 space-y-3 z-[100]"></div>
+
+    <!-- Footer Identitas -->
+    <footer class="bg-red-950 text-white py-12 mt-10">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div>
+                <h4 class="text-2xl font-black mb-4 uppercase">FEB UNUD <span class="text-orange-500">UMKM GROW</span></h4>
+                <p class="text-red-200 text-sm opacity-80">Gedung Laboratorium FEB, Kampus Sudirman.<br>Membangun kewirausahaan muda berbasis teknologi.</p>
+            </div>
+            <div class="md:text-right">
+                <p class="text-xs text-red-400">&copy; 2024 Laboratorium Bisnis Fakultas Ekonomi dan Bisnis Universitas Udayana.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // API KEY CONFIG
+        const apiKey = ""; 
+
+        let inventoryData = [
+            { id: 1, name: "Pie Susu Asli Bali", stock: 24 },
+            { id: 2, name: "Kopi Kintamani 100g", stock: 12 }
+        ];
+
+        // Global Gemini API Call Function
+        async function callGemini(systemPrompt, userPrompt) {
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: userPrompt }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+                const result = await response.json();
+                return result.candidates?.[0]?.content?.parts?.[0]?.text || "Maaf, AI sedang beristirahat.";
+            } catch (err) {
+                return "Terjadi kesalahan koneksi. Pastikan API Key valid.";
+            }
+        }
+
+        // Tab Navigation
+        function showTab(tabId, el) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            
+            if(el) {
+                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+                el.classList.add('active');
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Feature: SWOT AI Analysis
+        async function analyzeSWOTWithAI() {
+            const s = document.getElementById('strength').value;
+            const w = document.getElementById('weakness').value;
+            const o = document.getElementById('opportunity').value;
+            const t = document.getElementById('threat').value;
+
+            if (!s && !w) return showNotification("Mohon isi minimal Kekuatan & Kelemahan.");
+
+            const resultDiv = document.getElementById('swot-ai-result');
+            const resultText = document.getElementById('swot-ai-text');
+            resultDiv.classList.remove('hidden');
+            resultText.textContent = "AI sedang merumuskan strategi bisnis...";
+
+            const system = "Anda adalah konsultan bisnis dari Fakultas Ekonomi dan Bisnis Universitas Udayana. Gunakan bahasa Indonesia yang formal namun ramah.";
+            const prompt = `Lakukan analisis SWOT UMKM: Strengths: ${s}, Weaknesses: ${w}, Opportunities: ${o}, Threats: ${t}. Berikan 3 saran strategi konkret.`;
+
+            const res = await callGemini(system, prompt);
+            resultText.textContent = res;
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Feature: AI Caption Generator
+        async function generateCaption() {
+            const name = document.getElementById('prod-name').value;
+            const target = document.getElementById('prod-target').value;
+            if(!name) return showNotification("Nama produk wajib diisi.");
+
+            toggleLoading(true);
+            const system = "Anda adalah spesialis media sosial UMKM. Buat caption Instagram yang persuasif dan menarik.";
+            const prompt = `Buat caption untuk produk ${name} yang ditujukan kepada ${target}. Sertakan hashtag relevan dan sentuhan lokal Bali.`;
+
+            const res = await callGemini(system, prompt);
+            document.getElementById('caption-text').textContent = res;
+            toggleLoading(false);
+        }
+
+        // Feature: Price Calculator
+        function calculatePrice() {
+            const base = parseFloat(document.getElementById('cost-base').value) || 0;
+            const margin = parseFloat(document.getElementById('margin-pct').value) || 0;
+            const price = base + (base * (margin / 100));
+            document.getElementById('price-result').textContent = `Rp ${Math.round(price).toLocaleString('id-ID')}`;
+            showNotification("Harga jual berhasil diperbarui.");
+        }
+
+        // Feature: Inventory Management
+        function renderInventory() {
+            const list = document.getElementById('inventory-list');
+            list.innerHTML = "";
+            inventoryData.forEach(item => {
+                list.innerHTML += `
+                    <tr class="hover:bg-orange-50 transition">
+                        <td class="px-8 py-5 font-bold text-red-900">${item.name}</td>
+                        <td class="px-8 py-5">
+                            <span class="text-xl font-black ${item.stock < 10 ? 'text-red-600' : 'text-slate-800'}">${item.stock}</span> pcs
+                        </td>
+                        <td class="px-8 py-5">
+                            <button onclick="updateStock(${item.id}, 1)" class="w-8 h-8 rounded-lg bg-orange-100 text-orange-600 hover:bg-orange-600 hover:text-white transition">+</button>
+                            <button onclick="updateStock(${item.id}, -1)" class="w-8 h-8 rounded-lg bg-slate-100 text-slate-500 hover:bg-red-600 hover:text-white transition ml-1">-</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function updateStock(id, val) {
+            const item = inventoryData.find(i => i.id === id);
+            if(item) {
+                item.stock = Math.max(0, item.stock + val);
+                renderInventory();
+                if(item.stock < 5) showNotification(`Stok ${item.name} hampir habis!`);
+            }
+        }
+
+        function addInventoryItem() {
+            const n = prompt("Masukkan Nama Produk:");
+            if(n) {
+                inventoryData.push({ id: Date.now(), name: n, stock: 0 });
+                renderInventory();
+            }
+        }
+
+        // Utility: UI Helpers
+        function toggleLoading(s) {
+            document.getElementById('loading').classList.toggle('hidden', !s);
+        }
+
+        function showNotification(m) {
+            const area = document.getElementById('notification-area');
+            const toast = document.createElement('div');
+            toast.className = "bg-red-900 text-white px-6 py-3 rounded-2xl shadow-2xl border-l-4 border-orange-400 transition-all transform flex items-center";
+            toast.innerHTML = `<i class="fas fa-info-circle mr-2"></i> ${m}`;
+            area.appendChild(toast);
+            setTimeout(() => toast.remove(), 3500);
+        }
+
+        window.onload = renderInventory;
+    </script>
+</body>
+</html>
